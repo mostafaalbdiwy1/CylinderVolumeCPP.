@@ -1,58 +1,57 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-const int SIZE = 100;
+void read(int a[], int n)
+{
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+}
 
-struct partsType {
-    int partNum;
-    string partName;
-    double price;
-    int qty;
-};
+double avg(int a[], int n)
+{
+    int s = 0;
+    for (int i = 0; i < n; i++)
+        s += a[i];
 
-void inpdata(partsType inventory[], int n) {
-    for (int i = 0; i < n; i++) {
-        cout << "Enter part number: ";
-        cin >> inventory[i].partNum;
+    return (double)s / n;
+}
 
-        cout << "Enter part name: ";
-        cin.ignore();
-        getline(cin, inventory[i].partName);
+void analyze(int a[], int n, int &mn, int &mx, int &pass)
+{
+    mn = mx = a[0];
+    pass = 0;
 
-        cout << "Enter price: ";
-        cin >> inventory[i].price;
-
-        cout << "Enter quantity: ";
-        cin >> inventory[i].qty;
-
-        cout << endl;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] < mn) mn = a[i];
+        if (a[i] > mx) mx = a[i];
+        if (a[i] >= 50) pass++;
     }
 }
 
-void outdata(partsType inventory[], int n) {
-    cout << "\nInventory Data\n";
-    for (int i = 0; i < n; i++) {
-        cout << "Part " << i + 1 << endl;
-        cout << "Number: " << inventory[i].partNum << endl;
-        cout << "Name: " << inventory[i].partName << endl;
-        cout << "Price: " << inventory[i].price << endl;
-        cout << "Quantity: " << inventory[i].qty << endl;
-        cout << endl;
-    }
-}
+int main()
+{
+    int n;
+    cin >> n;
 
-int main() {
-    partsType inventory[SIZE];
-    int count;
+    int a[100];
+    read(a, n);
 
-    cout << "How many parts to enter (max 100): ";
-    cin >> count;
+    double av = avg(a, n);
 
-    if (count > SIZE) count = SIZE;
+    int mn, mx, pass;
+    analyze(a, n, mn, mx, pass);
 
-    inpdata(inventory, count);
-    outdata(inventory, count);
+    cout << "Average: " << av << endl;
+    cout << "Max: " << mx << endl;
+    cout << "Min: " << mn << endl;
+    cout << "Passed: " << pass << endl;
+    cout << "Failed: " << n - pass << endl;
+
+    cout << "Above avg: ";
+    for (int i = 0; i < n; i++)
+        if (a[i] > av)
+            cout << a[i] << " ";
 
     return 0;
 }
