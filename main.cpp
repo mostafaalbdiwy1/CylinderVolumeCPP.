@@ -1,26 +1,58 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-const double PI = 3.14159;
-const string programVersion = "1.0";
+const int SIZE = 100;
+
+struct partsType {
+    int partNum;
+    string partName;
+    double price;
+    int qty;
+};
+
+void inpdata(partsType inventory[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << "Enter part number: ";
+        cin >> inventory[i].partNum;
+
+        cout << "Enter part name: ";
+        cin.ignore();
+        getline(cin, inventory[i].partName);
+
+        cout << "Enter price: ";
+        cin >> inventory[i].price;
+
+        cout << "Enter quantity: ";
+        cin >> inventory[i].qty;
+
+        cout << endl;
+    }
+}
+
+void outdata(partsType inventory[], int n) {
+    cout << "\nInventory Data\n";
+    for (int i = 0; i < n; i++) {
+        cout << "Part " << i + 1 << endl;
+        cout << "Number: " << inventory[i].partNum << endl;
+        cout << "Name: " << inventory[i].partName << endl;
+        cout << "Price: " << inventory[i].price << endl;
+        cout << "Quantity: " << inventory[i].qty << endl;
+        cout << endl;
+    }
+}
 
 int main() {
-    double radius;
-    double height;
-    double volume;
+    partsType inventory[SIZE];
+    int count;
 
-    cout << "Program version " << programVersion << endl << endl;
+    cout << "How many parts to enter (max 100): ";
+    cin >> count;
 
-    cout << "Enter the radius of the cylinder: ";
-    cin >> radius;
+    if (count > SIZE) count = SIZE;
 
-    cout << "Enter the height of the cylinder: ";
-    cin >> height;
+    inpdata(inventory, count);
+    outdata(inventory, count);
 
-    volume = PI * radius * radius * height;
-
-    cout << "The volume of the cylinder is: " << volume << endl << endl;
-  
     return 0;
 }
-Add cylinder volume program
