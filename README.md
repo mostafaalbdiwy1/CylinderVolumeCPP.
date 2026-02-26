@@ -1,2 +1,2 @@
-# CylinderVolumeCPP.
-C++ program to calculate cylinder volume
+# program CPP.
+C++ program to calculate degree and average 
